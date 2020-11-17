@@ -1,0 +1,24 @@
+{
+  "extends": ["eslint-config-airbnb", "prettier"],
+  "env": {
+    "browser": true
+  },
+  "rules": {
+    "react/prop-types": ["off"],
+    "react/react-in-jsx-scope": ["off"],
+    "react/jsx-filename-extension": ["off"],
+    "react/jsx-one-expression-per-line": ["off"]
+  },
+  "settings": { 
+    "import/resolver": {
+      "alias": {
+        "map": [
+          ["@components", "./components"],
+          ["@styles", "./styles"],
+          ["@lib", "./lib"]
+        ],
+        "extensions": [".js", ".jsx", ".css"]
+      }
+    }
+  }
+}

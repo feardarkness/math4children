@@ -1,28 +1,28 @@
-import Head from "next/head";
-import Header from "@components/Header";
-import Footer from "@components/Footer";
-import { useEffect, useState } from "react";
-import netlifyAuth from "@components/NetlifyAuth";
+import Head from 'next/head';
+import Header from '@components/Header';
+import Footer from '@components/Footer';
+import { useEffect, useState } from 'react';
+import netlifyAuth from '@components/NetlifyAuth';
 
 export default function Home() {
-  let [loggedIn, setLoggedIn] = useState(netlifyAuth.isAuthenticated);
-  let [user, setUser] = useState(null);
+  const [loggedIn, setLoggedIn] = useState(netlifyAuth.isAuthenticated);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    netlifyAuth.initialize((user) => {
-      setLoggedIn(!!user);
+    netlifyAuth.initialize((loggedInUser) => {
+      setLoggedIn(!!loggedInUser);
     });
   }, [loggedIn]);
 
-  let login = () => {
-    netlifyAuth.authenticate((user) => {
-      setLoggedIn(!!user);
-      setUser(user);
+  const login = () => {
+    netlifyAuth.authenticate((loggedInUser) => {
+      setLoggedIn(!!loggedInUser);
+      setUser(loggedInUser);
       netlifyAuth.closeModal();
     });
   };
 
-  let logout = () => {
+  const logout = () => {
     netlifyAuth.signout(() => {
       setLoggedIn(false);
       setUser(null);
@@ -38,20 +38,25 @@ export default function Home() {
       <main>
         <Header title="Welcome to my app!" />
         <p className="description">
-          Get started by editing <code>pages/index.js</code>
+          Get started by editing
+          <code>pages/index.js</code>
         </p>
-        <p>
+        <div>
           {loggedIn ? (
             <div>
-              You are logged in!
-              {user && <>Welcome {user?.user_metadata.full_name}!</>}
+              You are logged in!!!
+              {user && <>Welcome {user.user_metadata.full_name}!</>}
               <br />
-              <button onClick={logout}>Log out here.</button>
+              <button type="button" onClick={logout}>
+                Log out here.
+              </button>
             </div>
           ) : (
-            <button onClick={login}>Log in here.</button>
+            <button type="button" onClick={login}>
+              Log in here.
+            </button>
           )}
-        </p>
+        </div>
       </main>
 
       <Footer />
